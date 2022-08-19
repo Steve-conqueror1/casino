@@ -1,5 +1,5 @@
 import { PayloadAction, combineReducers, createSlice } from '@reduxjs/toolkit';
-import { GameType, GamesResponseType } from './types';
+import { GameType, GamesResponseType } from '../types';
 
 import { clearStore } from './actions';
 
@@ -36,12 +36,25 @@ const isLoading = createSlice({
   },
 });
 
+const updated = createSlice({
+  name: 'updated',
+  initialState: false,
+  reducers: {
+    setUpdated: (_, { payload }: PayloadAction<boolean>) => payload,
+  },
+  extraReducers: {
+    [clearStore.type]: () => false,
+  },
+});
+
 export const { setGames } = games.actions;
 export const { setIsLoading } = isLoading.actions;
 export const { setLimit } = limit.actions;
+export const { setUpdated } = updated.actions;
 
 export default combineReducers({
   games: games.reducer,
   isLoading: isLoading.reducer,
   limit: limit.reducer,
+  updated: updated.reducer
 });

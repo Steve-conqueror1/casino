@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
 import { CardsContainer } from './../components';
 
 export const Home = () => {

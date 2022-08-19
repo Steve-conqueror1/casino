@@ -2,6 +2,15 @@ export type GetGamesApiPayload = {
   limit: number;
 };
 
+export type UpdateGameApiPayload = {
+  id: string;
+  status: string;
+};
+
+export type DeleteGameApiPayload = {
+  id: string;
+};
+
 export type GameType = {
   title: string;
   thumbnail: string;
