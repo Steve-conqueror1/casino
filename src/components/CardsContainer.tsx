@@ -26,7 +26,7 @@ export const CardsContainer = () => {
     <Paper elevation={1}>
       {state.isLoading && <Loader />}
       <Grid container spacing={3} alignItems="stretch">
-        {games.data.map((game, index) => (
+        {games.data.filter((game) => game.status === 'open').map((game, index) => (
           <Grid item xs={12} sm={4} key={index}>
             <GameCard
               thumbnail={game.thumbnail}
