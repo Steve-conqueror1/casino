@@ -11,6 +11,13 @@ export type DeleteGameApiPayload = {
   id: string;
 };
 
+export type CreateGame = {
+  title: string;
+  thumbnail: string;
+  profileUrl: string;
+  shortDescription: string;
+};
+
 export type GameType = {
   title: string;
   thumbnail: string;

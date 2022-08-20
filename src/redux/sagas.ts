@@ -26,35 +26,45 @@ function* getGamesApi(action: ReturnType<typeof actions.getGamesApi>) {
 function* updateGameStatusApi(
   action: ReturnType<typeof actions.updateGameApi>
 ) {
-   yield put(slicesActions.setUpdated(true));
+  yield put(slicesActions.setUpdated(true));
   const {
     payload: { id, status },
   } = action;
   try {
-     yield axios.put(
-      `${process.env.REACT_APP_API_SERVER}/${id}`, {
-            status: status
-         }
-    );
-
+    yield axios.put(`${process.env.REACT_APP_API_SERVER}/${id}`, {
+      status: status,
+    });
   } catch (err) {
     console.error(err);
   }
   yield put(slicesActions.setUpdated(false));
 }
 
-function* deleteGameApi(
-  action: ReturnType<typeof actions.updateGameApi>
-) {
-   yield put(slicesActions.setUpdated(true));
+function* deleteGameApi(action: ReturnType<typeof actions.updateGameApi>) {
+  yield put(slicesActions.setUpdated(true));
   const {
     payload: { id },
   } = action;
   try {
-     yield axios.delete(
-      `${process.env.REACT_APP_API_SERVER}/${id}`
-    );
+    yield axios.delete(`${process.env.REACT_APP_API_SERVER}/${id}`);
+  } catch (err) {
+    console.error(err);
+  }
+  yield put(slicesActions.setUpdated(false));
+}
 
+function* createGameApi(action: ReturnType<typeof actions.createGameApi>) {
+  yield put(slicesActions.setIsCreated(true));
+  const {
+    payload: { title, thumbnail, profileUrl, shortDescription },
+  } = action;
+  try {
+    yield axios.post(`${process.env.REACT_APP_API_SERVER}`, {
+      title,
+      thumbnail,
+      profileUrl,
+      shortDescription,
+    });
   } catch (err) {
     console.error(err);
   }
@@ -65,5 +75,5 @@ export function* watchCommonSaga() {
   yield takeLatest(actions.getGamesApi.type, getGamesApi);
   yield takeLatest(actions.updateGameApi.type, updateGameStatusApi);
   yield takeLatest(actions.deleteGameApi.type, deleteGameApi);
+  yield takeLatest(actions.createGameApi.type, createGameApi);
 }
-

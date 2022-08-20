@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Grid, Button } from '@mui/material';
+import { Paper, Grid } from '@mui/material';
 import { GameCard } from './GameCard';
 import { useTypedSelection, useActions } from './../hooks';
 import { IntersectionContainter } from './IntersectionContainter';
@@ -26,16 +26,18 @@ export const CardsContainer = () => {
     <Paper elevation={1}>
       {state.isLoading && <Loader />}
       <Grid container spacing={3} alignItems="stretch">
-        {games.data.filter((game) => game.status === 'open').map((game, index) => (
-          <Grid item xs={12} sm={4} key={index}>
-            <GameCard
-              thumbnail={game.thumbnail}
-              title={game.title}
-              shortDescription={game.shortDescription}
-              profileUrl={game.profileUrl}
-            />
-          </Grid>
-        ))}
+        {games.data
+          .filter((game) => game.status === 'open')
+          .map((game, index) => (
+            <Grid item xs={12} sm={4} key={index}>
+              <GameCard
+                thumbnail={game.thumbnail}
+                title={game.title}
+                shortDescription={game.shortDescription}
+                profileUrl={game.profileUrl}
+              />
+            </Grid>
+          ))}
       </Grid>
       {limit < games.count && (
         <IntersectionContainter isLoading={isLoading} loadMore={loadMore}>
