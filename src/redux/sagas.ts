@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import { api } from '../api';
 
 import { put, takeLatest } from 'redux-saga/effects';
 import * as actions from './actions';
@@ -13,8 +14,8 @@ function* getGamesApi(action: ReturnType<typeof actions.getGamesApi>) {
   } = action;
 
   try {
-    const { data }: AxiosResponse<GamesResponseType> = yield axios.get(
-      `${process.env.REACT_APP_API_SERVER}?limit=${limit}`
+    const { data }: AxiosResponse<GamesResponseType> = yield api.get(
+      `?limit=${limit}`
     );
     yield put(slicesActions.setGames(data));
   } catch (err) {
@@ -31,7 +32,7 @@ function* updateGameStatusApi(
     payload: { id, status },
   } = action;
   try {
-    yield axios.put(`${process.env.REACT_APP_API_SERVER}/${id}`, {
+    yield api.put(`/${id}`, {
       status: status,
     });
   } catch (err) {
@@ -46,7 +47,7 @@ function* deleteGameApi(action: ReturnType<typeof actions.updateGameApi>) {
     payload: { id },
   } = action;
   try {
-    yield axios.delete(`${process.env.REACT_APP_API_SERVER}/${id}`);
+    yield api.delete(`/${id}`);
   } catch (err) {
     console.error(err);
   }
@@ -59,7 +60,7 @@ function* createGameApi(action: ReturnType<typeof actions.createGameApi>) {
     payload: { title, thumbnail, profileUrl, shortDescription },
   } = action;
   try {
-    yield axios.post(`${process.env.REACT_APP_API_SERVER}`, {
+    yield api.post('/', {
       title,
       thumbnail,
       profileUrl,
