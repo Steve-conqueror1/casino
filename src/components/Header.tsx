@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, AppBar, IconButton, Typography, Toolbar } from '@mui/material';
+import React  from 'react';
+import { Box, AppBar, IconButton, Typography, Toolbar, Button } from '@mui/material';
 import CasinoIcon from '@mui/icons-material/Casino';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,10 +21,11 @@ export const Header = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Popular casino
           </Typography>
+          <Button onClick={() => navigate('/admin')} variant='contained'>
+            Casino Employees
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
 };
-
-export default Header;
